@@ -6,13 +6,57 @@
         <link rel="shortcut icon" type="image/png" href="favicon.png">
         <title>Troksnis</title>
         <style>
-html {
+html, body, canvas {
+    display: block;
     height: 100%;
+    width: 100%;
     padding: 0;
     margin: 0;
-    background: no-repeat center url(m.png), #000000;
 }
         </style>
     </head>
-    <body/>
+    <body>
+        <canvas/>
+        <script>
+const pixelSize = 4;
+const canvas = document.querySelector("canvas");
+const ctx = canvas.getContext("2d", { alpha: false });
+ctx.canvas.width  = window.innerWidth;
+ctx.canvas.height = window.innerHeight;
+
+const width = ctx.canvas.width / pixelSize;
+const height = ctx.canvas.height / pixelSize;
+
+const random_pixel_count = width * height / 666;
+
+function get_random_int(max) {
+    return Math.floor(Math.random() * max);
+}
+
+function get_random_color() {
+    const color = get_random_int(255);
+    return `rgb(${color}, ${color}, ${color})`;
+}
+
+function draw_pixel(position) {
+    ctx.fillStyle = get_random_color();
+    ctx.fillRect(position.x * pixelSize, position.y * pixelSize, pixelSize, pixelSize);
+}
+
+for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+        draw_pixel({ x, y });
+    }
+}
+
+setInterval(() => {
+    for (let i = 0; i < random_pixel_count; i++) {
+        draw_pixel({
+            x: get_random_int(width),
+            y: get_random_int(height)
+        });
+    }
+}, 3);
+        </script>
+    </body>
 </html>
