@@ -41,6 +41,11 @@ p {
                 y: 0,
             }
 
+            window.onmouseout = () => {
+                targetMouse.x = canvas.width / 2
+                targetMouse.y = canvas.height / 2
+            }
+
             document.onmousemove = (e) => {
                 targetMouse.x = e.clientX || e.pageX
                 targetMouse.y = e.clientY || e.pageY
